@@ -84,7 +84,7 @@ PIXI.loader.add('cat', 'img/dog.png').load(function (loader, resources) {
 
 
 var mousex = w/2, mousey = h/2;
-PIXI.loader.add('catdisplacement', 'img/dog.png').load(function (loader, resources) {
+PIXI.loader.add('catdisplacement', 'img/dog_displace.png').load(function (loader, resources) {
   catd = new PIXI.Sprite(resources.catdisplacement.texture);
   catf = new PIXI.filters.DisplacementFilter(catd, 0);
   cat.filters = [catf];
