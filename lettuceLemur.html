@@ -1,0 +1,157 @@
+<html>
+<head>
+<title>Lettuce Lemur</title>
+<meta property="og:title" content="Lettuce Lemur" />
+<meta property="og:image" content="" />
+<meta property="og:url" content="http://saruwatari.tk/pickle_cat_tribute/lettuceLemur.html" />
+<meta property="og:type" content="website" />
+<script src = "pixi.min.js"></script>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+}
+iframe {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+}
+</style>
+</head>
+<body>
+<iframe src="https://www.youtube.com/embed/kmm0fMy8TvE?autoplay=1&loop=1&playlist=UsMewmMTA_c"></iframe>
+<script>
+
+w = 1024, h = 768;
+var renderer = new PIXI.WebGLRenderer(w, h);
+
+document.body.appendChild(renderer.view);
+
+var stage = new PIXI.Container();
+var container = new PIXI.Container();
+var foreground = new PIXI.Container();
+stage.addChild(container);
+stage.addChild(foreground);
+
+var boxer, bg, d, f;
+
+PIXI.loader.add('bg', 'img/bg3.jpg').load(function (loader, resources) {
+  bg = new PIXI.Sprite(resources.bg.texture);
+  bg.position.x = w / 2;
+  bg.position.y = h / 2;
+  bg.scale.x = 1.6;
+  bg.scale.y = 1.6;
+  bg.pivot.x = 1509 / 2;
+  bg.pivot.y = 935 / 2;
+  container.addChild(bg);
+});
+
+var corns = [];
+PIXI.loader.add('corn', 'img/lettuce.png').load(function (loader, resources) {
+  var shadow = new PIXI.filters.DropShadowFilter();
+  shadow.distance = 0;
+  shadow.blur = 20;
+
+  for (i=0; i<8; i++) {
+    var p = new PIXI.Sprite(resources.corn.texture);
+    p.position.y = Math.random() * 400;
+    p.pivot.x = 480/2;
+    p.pivot.y = 263/2;
+    p.scale.x = 0.5;
+    p.scale.y = 0.5;
+
+    p.filters = [shadow];
+
+    corns[i] = p;
+    foreground.addChild(p);
+  }
+});
+
+PIXI.loader.add('boxer', 'img/lemur.png').load(function (loader, resources) {
+  boxer = new PIXI.Sprite(resources.boxer.texture);
+  boxer.pivot.x = 250;
+  boxer.pivot.y = 320;
+  boxer.position.x = w / 2;
+  boxer.position.y = h;
+  boxer.scale.x = w / 500 * 0.6;
+  boxer.scale.y = h / 333 * 0.6;
+  foreground.addChild(boxer);
+});
+
+
+var mousex = w/2, mousey = h/2;
+PIXI.loader.add('boxerdisplacement', 'img/boxer_displace.png').load(function (loader, resources) {
+  boxerd = new PIXI.Sprite(resources.boxerdisplacement.texture);
+  boxerf = new PIXI.filters.DisplacementFilter(boxerd, 0);
+  boxer.filters = [boxerf];
+  boxer.addChild(boxerd)
+
+  window.onmousemove = function(e) {
+    mousex = e.clientX;
+    mousey = e.clientY;
+  };
+});
+
+
+var f3;
+PIXI.loader.add('displacement', 'img/displacer.jpg').load(function (loader, resources) {
+  d1 = new PIXI.Sprite(resources.displacement.texture);
+  f1 = new PIXI.filters.DisplacementFilter(d1, 40);
+
+  d1.scale.x = 2;
+  d1.scale.y = 2;
+
+  var f2 = new PIXI.filters.RGBSplitFilter();
+  f2.red.x = -2;
+  f2.red.y = 2;
+  f2.green.x = 0;
+  f2.green.y = 0;
+  f2.blue.x = 2;
+  f2.blue.y = -2;
+
+  // f3 = new PIXI.filters.TiltShiftFilter();
+  // f3.gradientBlur = 800;
+  // f3.blur = 20;
+
+  container.filters = [f2, f1];
+  container.addChild(d1);
+});
+
+var brightness = new PIXI.filters.ColorMatrixFilter();
+brightness.brightness(0.8, 1);
+var bloom = new PIXI.filters.BloomFilter();
+stage.filters = [brightness, bloom];
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  var d = +new Date();
+
+  d1.position.x = 200 * Math.sin(d / 1200);
+  d1.position.y = 200 * Math.cos(d / 1200);
+
+  f1.scale.x = 170 * Math.sin(d / 1100);
+  f1.scale.y = 170 * Math.cos(d / 1070);
+
+  bg.rotation = 0.1 * Math.sin(d / 10000);
+  boxer.rotation = 0.04 * Math.cos(d / 1000);
+
+  for (i=0; i<corns.length; i++) {
+    corns[i].position.x = ((d/(25+i) + i*700)) % (w + 800) - 400;
+    corns[i].position.y = 100 * Math.sin(i + d / 5000) + 150;
+    corns[i].rotation = Math.sign(i-1.5) * d / (2500 + 300 * i);
+  }
+
+  boxerf.scale.x = (window.innerWidth/2 - mousex) / 80 + 6 * Math.sin(d/1000);
+  boxerf.scale.y = (window.innerHeight/2 - mousey) / 80 + 6 * Math.cos(d/1200);
+
+  renderer.render(stage);
+}
+
+PIXI.loader.once('complete', animate);
+
+</script>
