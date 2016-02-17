@@ -3,7 +3,7 @@
 <title>f14 Dog</title>
 <meta property="og:title" content="Top Gun" />
 <meta property="og:image" content="" />
-<meta property="og:url" content="http://saruwatari.tk/f14_boxer_tribute/f14dog.html" />
+<meta property="og:url" content="http://saruwatari.tk/f14_cruise_tribute/f14dog.html" />
 <meta property="og:type" content="website" />
 <script src = "pixi.min.js"></script>
 <style>
@@ -23,7 +23,7 @@ iframe {
 </style>
 </head>
 <body>
-<iframe src="https://www.youtube.com/embed/kmm0fMy8TvE?autoplay=1&loop=1&playlist=UsMewmMTA_c"></iframe>
+<iframe src="https://www.youtube.com/embed/ZzQ3eBerHfM?autoplay=1&loop=1&playlist=UsMewmMTA_c"></iframe>
 <script>
 
 w = 1024, h = 768;
@@ -37,7 +37,7 @@ var foreground = new PIXI.Container();
 stage.addChild(container);
 stage.addChild(foreground);
 
-var boxer, bg, d, f;
+var cruise, bg, d, f;
 
 PIXI.loader.add('bg', 'img/topgun/sky_bg.jpg').load(function (loader, resources) {
   bg = new PIXI.Sprite(resources.bg.texture);
@@ -113,24 +113,24 @@ PIXI.loader.add('f14', 'img/topgun/f14_1.png').load(function (loader, resources)
   }
 });
 
-PIXI.loader.add('boxer', 'img/boxer.png').load(function (loader, resources) {
-  boxer = new PIXI.Sprite(resources.boxer.texture);
-  boxer.pivot.x = 250;
-  boxer.pivot.y = 320;
-  boxer.position.x = w / 2;
-  boxer.position.y = h;
-  boxer.scale.x = w / 500 * 0.6;
-  boxer.scale.y = h / 333 * 0.6;
-  foreground.addChild(boxer);
+PIXI.loader.add('cruise', 'img/topgun/cruise.png').load(function (loader, resources) {
+  cruise = new PIXI.Sprite(resources.cruise.texture);
+  cruise.pivot.x = 250;
+  cruise.pivot.y = 320;
+  cruise.position.x = w / 2;
+  cruise.position.y = h;
+  cruise.scale.x = w / 500 * 0.6;
+  cruise.scale.y = h / 333 * 0.6;
+  foreground.addChild(cruise);
 });
 
 
 var mousex = w/2, mousey = h/2;
-PIXI.loader.add('boxerdisplacement', 'img/boxer_displace.png').load(function (loader, resources) {
-  boxerd = new PIXI.Sprite(resources.boxerdisplacement.texture);
-  boxerf = new PIXI.filters.DisplacementFilter(boxerd, 0);
-  boxer.filters = [boxerf];
-  boxer.addChild(boxerd)
+PIXI.loader.add('cruisedisplacement', 'img/cruise_displace.png').load(function (loader, resources) {
+  cruised = new PIXI.Sprite(resources.cruisedisplacement.texture);
+  cruisef = new PIXI.filters.DisplacementFilter(cruised, 0);
+  cruise.filters = [cruisef];
+  cruise.addChild(cruised)
 
   window.onmousemove = function(e) {
     mousex = e.clientX;
@@ -180,7 +180,7 @@ function animate() {
   f1.scale.y = 170 * Math.cos(d / 1070);
 
   bg.rotation = 0.1 * Math.sin(d / 10000);
-  boxer.rotation = 0.04 * Math.cos(d / 1000);
+  cruise.rotation = 0.04 * Math.cos(d / 1000);
 
   for (i=0; i<f14s.length; i++) {
     f14s[i].position.x = ((d/(25+i) + i*700)) % (w + 800) - 400;
@@ -198,8 +198,8 @@ function animate() {
     // f14s_straight[i].rotation = Math.sign(i-1.5) * d / (2500 + 300 * i);
   }
 
-  boxerf.scale.x = (window.innerWidth/2 - mousex) / 80 + 6 * Math.sin(d/1000);
-  boxerf.scale.y = (window.innerHeight/2 - mousey) / 80 + 6 * Math.cos(d/1200);
+  cruisef.scale.x = (window.innerWidth/2 - mousex) / 80 + 6 * Math.sin(d/1000);
+  cruisef.scale.y = (window.innerHeight/2 - mousey) / 80 + 6 * Math.cos(d/1200);
 
   renderer.render(stage);
 }
