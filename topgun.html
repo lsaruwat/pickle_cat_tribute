@@ -57,7 +57,7 @@ PIXI.loader.add('f14_straight_small', 'img/topgun/f14_1.png').load(function (loa
   shadow.blur = 20;
 
   for (i=0; i<2; i++) {
-    var p = new PIXI.Sprite(resources.f14.texture);
+    var p = new PIXI.Sprite(resources.f14_straight_small.texture);
     p.position.y = Math.random() * 400;
     p.pivot.x = 480/2;
     p.pivot.y = 263/2;
@@ -78,7 +78,7 @@ PIXI.loader.add('f14_straight', 'img/topgun/f14_1.png').load(function (loader, r
   shadow.blur = 20;
 
   for (i=0; i<2; i++) {
-    var p = new PIXI.Sprite(resources.f14.texture);
+    var p = new PIXI.Sprite(resources.f14_straight.texture);
     p.position.y = Math.random() * 400;
     p.pivot.x = 480/2;
     p.pivot.y = 263/2;
@@ -92,19 +92,40 @@ PIXI.loader.add('f14_straight', 'img/topgun/f14_1.png').load(function (loader, r
   }
 });
 
+// var volleyballs = [];
+// PIXI.loader.add('volleyball', 'img/topgun/volleyball.png').load(function (loader, resources) {
+//   var shadow = new PIXI.filters.DropShadowFilter();
+//   shadow.distance = 0;
+//   shadow.blur = 20;
+
+//   for (i=0; i<4; i++) {
+//     var p = new PIXI.Sprite(resources.volleyball.texture);
+//     p.position.y = Math.random() * 500;
+//     p.pivot.x = 480/2;
+//     p.pivot.y = 263/2;
+//     p.scale.x = 0.3;
+//     p.scale.y = 0.3;
+
+//     p.filters = [shadow];
+
+//     volleyballs[i] = p;
+//     foreground.addChild(p);
+//   }
+// });
+
 var f14s = [];
-PIXI.loader.add('f14', 'img/topgun/f14_1.png').load(function (loader, resources) {
+PIXI.loader.add('f14', 'img/topgun/volleyball.png').load(function (loader, resources) {
   var shadow = new PIXI.filters.DropShadowFilter();
   shadow.distance = 0;
   shadow.blur = 20;
 
-  for (i=0; i<3; i++) {
+  for (i=0; i<5; i++) {
     var p = new PIXI.Sprite(resources.f14.texture);
     p.position.y = Math.random() * 400;
     p.pivot.x = 480/2;
     p.pivot.y = 263/2;
-    p.scale.x = 0.5;
-    p.scale.y = 0.5;
+    p.scale.x = 0.4;
+    p.scale.y = 0.4;
 
     p.filters = [shadow];
 
@@ -118,7 +139,7 @@ PIXI.loader.add('cruise', 'img/topgun/cruise.png').load(function (loader, resour
   cruise.pivot.x = 250;
   cruise.pivot.y = 320;
   cruise.position.x = w / 2;
-  cruise.position.y = h;
+  cruise.position.y = h + 50;
   cruise.scale.x = w / 500 * 0.6;
   cruise.scale.y = h / 333 * 0.6;
   foreground.addChild(cruise);
@@ -187,6 +208,11 @@ function animate() {
     f14s[i].position.y = 100 * Math.sin(i + d / 5000) + 150;
     f14s[i].rotation = Math.sign(i-1.5) * d / (2500 + 300 * i);
   }
+  // for (i=0; i<volleyballs.length; i++) {
+  //   volleyballs[i].position.x = ((d/(15+i) + i*700)) % (w + 800) - 400;
+  //   volleyballs[i].position.y = 100 * Math.sin(i + d / 5000) + 150;
+  //   volleyballs[i].rotation = Math.sign(i-1.5) * d / (2500 + 300 * i);
+  // }
   for (i=0; i<f14s_straight.length; i++) {
     f14s_straight[i].position.x = ((d/(3+i) + i*700)) % (w + 800) - 400;
     f14s_straight[i].position.y = 100 * Math.sin(i + d / 5000) + 150;
